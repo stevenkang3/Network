@@ -1,0 +1,46 @@
+<h2>Hi <%= @user.name %>!</h2>
+<h4><a href="/users/all">All Users</a></h4>
+Here is your profile description
+<div class="description">
+  <%= @user.description %>
+</div><br><br>
+
+
+Your Professional Network:
+<div class="network">
+  <% @users.each do |user| %>
+  <% if user != current_user %>
+    <% user.friendships.each do |u| %>
+      <% if u.friend_id == @user.id && u.status == "true" %>
+        <p><a href="/user/<%= user.id %>"><%= user.name %></a></p>
+      <%end%>
+      <%end%>
+      <%end%>
+      <%end%>
+</div>
+
+<h3>Invitations:</h3>
+The following people asked you to be in their network:
+
+  <table class='table table-striped table-bordered'>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+    <% if user != current_user %>
+      <% user.friendships.each do |u| %>
+        <% if u.friend_id == @user.id && u.status == "false" %>
+    <tr>
+      <td><a href="/user/<%= user.id %>"><%= user.name %></a></td>
+      <td><a href="/connect/<%= user.id %>">Accept_Invitation</a> | <a href="/disconnect/<%= user.id %>">Ignore</a></td>
+    </tr>
+    <%end%>
+    <%end%>
+    <%end%>
+    <%end%>
+  </tbody>
+</table>

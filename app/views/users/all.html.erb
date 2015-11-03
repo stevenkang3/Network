@@ -1,0 +1,21 @@
+<a href="/users">My Profile</a>
+<h2> Users you may want to connect with:</h2>
+
+<table class='table table-striped table-bordered'>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+    <% if user != current_user %>  
+      <tr>
+        <td><a href="/user/<%= user.id %>"><%= user.name %></a></td>
+        <td><a href="/friendship/<%= user.id %>">Connects</a></td>
+      </tr>
+    <%end%>
+    <%end%>
+  </tbody>
+</table>
